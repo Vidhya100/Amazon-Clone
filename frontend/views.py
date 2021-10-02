@@ -8,7 +8,7 @@ def homePage(request):
     """ Fetch latest data in acending order by id """ 
     navigationProductCategories = ProductModels.ProductCategory.objects.filter(status=True).order_by('-id')[:4]
     productCategories = ProductModels.ProductCategory.objects.filter(status = True)
-    products = ProductModels.Product.objects.filter(status=True).order_by('-id')[:3]
+    products = ProductModels.Product.objects.filter(status=True).order_by('-id')[:4]
     
     return render(request, 'index.html',{
         'navigationProductCategories' : navigationProductCategories,
