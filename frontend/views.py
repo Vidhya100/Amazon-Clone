@@ -23,3 +23,6 @@ def CategoryProducts(request, product_category_id):
     return render(request, 'category-product.html',{
         'navigationProductCategories' : navigationProductCategories
     })
+
+def ProductDetails(request, product_id):
+    return render(request, 'product-details.html')
