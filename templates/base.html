@@ -60,7 +60,7 @@
                      </ul>
                      <ul class="navbar-nav ml-auto mt-10">
                         <li class="nav-item">
-                           <a class="nav-link login-button" href="login.html">Login</a>
+                           <a class="nav-link login-button" href="{% url 'customerLogin' %}">Login</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link text-white add-button" href="ad-listing.html"><i
@@ -178,7 +178,8 @@
    <script src="{% static 'plugins/raty/jquery.raty-fa.js' %}"></script>
    <script src="{% static 'plugins/jquery-nice-select/js/jquery.nice-select.min.js' %}"></script>
    <script src="{% static 'plugins/fancybox/jquery.fancybox.pack.js' %}"></script>
-
+   <script src="{% static 'plugins/slick-carousel/slick/slick.min.js' %}"></script>
+   
    <script src="{% static 'js/script.js' %}"></script>
 </body>
 
