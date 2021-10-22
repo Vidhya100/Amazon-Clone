@@ -54,18 +54,34 @@
                         </li>
                         {% for navigationProductCategory in navigationProductCategories %}
                         <li class="nav-item active">
-                           <a class="nav-link" href="{% url 'CategoryProducts' product_category_id=navigationProductCategory.id %}">{{navigationProductCategory.name}}</a>
+                           <a class="nav-link"
+                              href="{% url 'CategoryProducts' product_category_id=navigationProductCategory.id %}">{{navigationProductCategory.name}}</a>
                         </li>
                         {% endfor %}
                      </ul>
                      <ul class="navbar-nav ml-auto mt-10">
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                           <a class="nav-link login-button" href="{% url 'CustomerCart' %}"><i
+                                 class="fa fa-shopping-cart"></i> Cart</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link login-button" href="#">Order History</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link login-button" href="#">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link login-button" href="{% url 'customerLogout' %}">Logout</a>
+                        </li>
+                        {% else %}
                         <li class="nav-item">
                            <a class="nav-link login-button" href="{% url 'customerLogin' %}">Login</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link text-white add-button" href="ad-listing.html"><i
-                                 class="fa fa-plus-circle"></i> Add Listing</a>
+                           <a class="nav-link login-button" href="{% url 'CustomerRegistration' %}">Registration</a>
                         </li>
+                        {% endif %}
                      </ul>
                   </div>
                </nav>
@@ -101,10 +117,11 @@
                   <h4>Category</h4>
                   <ul>
                      {% for navigationProductCategory in navigationProductCategories %}
-                        <li class=" ">
-                           <a class="" href="{% url 'CategoryProducts' product_category_id=navigationProductCategory.id %}">{{navigationProductCategory.name}}</a>
-                        </li>
-                        {% endfor %}
+                     <li class=" ">
+                        <a class=""
+                           href="{% url 'CategoryProducts' product_category_id=navigationProductCategory.id %}">{{navigationProductCategory.name}}</a>
+                     </li>
+                     {% endfor %}
                   </ul>
                </div>
             </div>
@@ -179,7 +196,7 @@
    <script src="{% static 'plugins/jquery-nice-select/js/jquery.nice-select.min.js' %}"></script>
    <script src="{% static 'plugins/fancybox/jquery.fancybox.pack.js' %}"></script>
    <script src="{% static 'plugins/slick-carousel/slick/slick.min.js' %}"></script>
-   
+
    <script src="{% static 'js/script.js' %}"></script>
 </body>
 
