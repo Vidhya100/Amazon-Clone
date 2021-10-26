@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 """ User Models """
 from django.contrib.auth.models import User
+from user_profile import models as UserProfileModels
 
 def customerLogin(request):
     if request.method == 'POST':
@@ -126,7 +127,7 @@ def CustomerCart(request):
         return redirect('customerLogin')
 
 def DeleteCartProduct(request, cart_id):
-     if request.user.is_authenticated:
+     
          if request.user.is_authenticated:
                 try:
                     CartModels.Cart.objects.get(id=cart_id).delete()
@@ -136,3 +137,32 @@ def DeleteCartProduct(request, cart_id):
                 return redirect('CustomerCart')
          else:
                 return redirect('customerLogin')
+
+def CustomerProfile(request):
+    if request.user.is_authenticated:
+        user_profile, _ = UserProfileModels.UserProfile.objects.get_or_create(user=request.user)
+        if request.method == 'POST':
+            firstName = request.POST.get('first-name')
+            lastName = request.POST.get('last_name')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            ConfirmPasword = request.POST.get('Confirm_password')
+            address = request.POST.get('address')
+            mobile = request.POST.get('mobile')
+            profilePicture= request.FILES.get('profile_picture')
+
+            request.user.first_name = firstName
+            request.user.last_name = lastName
+            request.user.email = email
+            request.user.save()
+        else:
+            navigationProductCategories = ProductModels.ProductCategory.objects.filter(status=True).order_by('-id')[:4]
+            user = User.objects.get(id=request.user.id)
+            user_profile = UserProfileModels.UserProfile.objects.get_or_create(user=request.user)
+            return render(request, 'customer-profile.html',{
+                    'navigationProductCategories' :navigationProductCategories,
+                    'user': user,
+                    'user_profile': user_profile, 
+            })
+    else:
+        return redirect('homepage')
